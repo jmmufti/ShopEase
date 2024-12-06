@@ -5,7 +5,8 @@ from django.contrib.messages import constants as messages
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-t1ze1l)w1*noc!*buyemi(0(bt9u_8m=p(-g8+vo*i^d8%(mr@'
+import os
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-t1ze1l)w1*noc!*buyemi(0(bt9u_8m=p(-g8+vo*i^d8%(mr@')  # Consider using environment variables for this
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -21,6 +22,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+    'widget_tweaks',
+    
 ]
 
 MIDDLEWARE = [
@@ -68,12 +71,13 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'main.CustomUser'
+
 # Custom Authentication Backend
 AUTHENTICATION_BACKENDS = [
     'shopease.auth_backends.EmailAuthBackend',  # Correct path to your custom backend
-    'django.contrib.auth.backends.ModelBackend',    # Keep default backend
+    'django.contrib.auth.backends.ModelBackend',  # Keep default backend
 ]
-
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -113,3 +117,6 @@ MESSAGE_TAGS = {
     messages.WARNING: 'warning',
     messages.ERROR: 'danger',
 }
+STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY', 'pk_test_51QNyJnKQbLM2U9ONfTYil4edqpwij3pAWCvw0BSv6YBsE7lLXaJ7F5YVEUlkHmCUEJgfgSAEOmJZTez17EEbhDvh00V48PF4Vw')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', 'sk_test_51QNyJnKQbLM2U9ONpuKOFdPcIIbRV7B3XYpnoKRODh2YmtlFeBtxea51EGqMQ7VIdWCO6q9FQoltyNgtQkhQ8LCe00GDd4xSz7')
+STRIPE_SECRET_KEY = 'sk_test_51QNyJnKQbLM2U9ONpuKOFdPcIIbRV7B3XYpnoKRODh2YmtlFeBtxea51EGqMQ7VIdWCO6q9FQoltyNgtQkhQ8LCe00GDd4xSz7'

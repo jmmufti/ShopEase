@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% load static %}
 
 {% block extra_css %}
 <style>
@@ -10,7 +10,7 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
-        background-color: #ffffff;
+        background-color: #f3f3f3;
     }
     .container {
         text-align: center;
@@ -19,7 +19,12 @@
         border: 1px solid #ddd;
         padding: 20px;
         width: 300px;
+        background-color: white;
         box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    }
+    .signin-box img {
+        width: 100px;
+        margin-bottom: 20px;
     }
     .signin-box h1 {
         font-size: 24px;
@@ -69,6 +74,7 @@
 {% block content %}
 <div class="container">
     <div class="signin-box">
+        <img src="{% static 'images/Shopease_logo2.png' %}" alt="ShopEase Logo">
         <h1>Sign in</h1>
         <form method="post">
             {% csrf_token %}

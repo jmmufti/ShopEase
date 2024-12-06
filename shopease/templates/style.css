@@ -1,16 +1,28 @@
 *{
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    border: border-box;
+    box-sizing: border-box;
 }
 
 .navbar{
     height: 60px;
-    background-color: #0F1111;
-    color: white;
+    background-color: black; /* Changed to black */
+    color: white; /* Ensure the text color is readable */
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+}
+
+.navbar a {
+    color: white; /* Ensure the links are readable */
+}
+
+.navbar .dropdown-content a {
+    color: black; /* Ensure the dropdown links are readable */
+}
+
+.navbar .dropdown-content a:hover {
+    background-color: #ddd; /* Optional: Add a hover effect for dropdown links */
 }
 
 .nav-logo{
@@ -32,7 +44,7 @@
 }
 
 .border:hover{
-    border: 1.5px solid white;
+    border: 1.5px solid black;
 }
 
 /*2nd Box :*/ 
@@ -69,12 +81,11 @@
     display: flex;
     width: 875px;
     height: 40px;
-    border: border-box;
+    box-sizing: border-box;
     margin-left: 28px;
-  position: static;
-  justify-content: space-evenly;
+    position: static;
+    justify-content: space-evenly;
 }
-
 
 .select{
     background-color: #dedcdc;
@@ -97,11 +108,10 @@
 }
 
 .form:hover{
-    
-        border-color: 1px solid orange;
-        border-radius: 5px;
-    
+    border-color: 1px solid orange;
+    border-radius: 5px;
 }
+
 .magnify{
     color: black;
     width: 50px;
@@ -125,13 +135,14 @@
     align-items: center;
     margin-left: 5px;
 }
+
 .select-lang{
     border: none;
     background-color: transparent;
     color: white;
     font-weight: 700;
-    color: white;
 }
+
 /*4th box*/
 .user-portion{
     display: flex;
@@ -145,7 +156,6 @@
     font-size: 12px;
     font-weight: 550;
     margin-left: 5px;
-
 }
 
 .account{
@@ -204,7 +214,7 @@
 
 .panel{
     display:flex ;
-    background-color: #222f3d;    
+    background-color: #0f1216;    
     height: 40px;
     color: white;
     align-items: center;
@@ -228,6 +238,7 @@
 .other-panel p{
     display: inline;
     margin-left: 20px;
+    background-color: #0f1216;
 }
 
 .other-panel{
@@ -247,7 +258,6 @@
     background-image: url(hero_image.jpg);
     background-size: cover;
     height: 400px;
-    /* box-shadow: 0px -5px 20px 5px white ;  */
     width: auto;
     display: flex;
     justify-content: space-evenly; 
@@ -302,7 +312,6 @@
     font-size: 14px;
     margin-left: 2px;
 }
-
 
 .box-2{
     align-items: center;
@@ -396,7 +405,6 @@
     font-size: 14px;
     margin-left: 2px;
 }
-
 
 .box-5{
     align-items: center;
@@ -594,6 +602,52 @@
     margin-top: 3px;
 }
 
+/* Ensure the genre container is flex and wraps */
+.genre-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 20px 0;
+}
 
+/* Ensure all genre boxes have the same size and alignment */
+.genre-box {
+    flex: 1 1 30%;
+    box-sizing: border-box;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #f9f9f9;
+    max-width: 300px; /* Ensure all boxes have the same width */
+}
 
+/* Ensure all genre images have the same size and alignment */
+.genre-image img {
+    width: 100%; /* Ensure images take the full width of the container */
+    height: 200px; /* Ensure all images have the same height */
+    object-fit: cover; /* Ensure images cover the area without distortion */
+    border-radius: 5px;
+}
 
+/* Style for the genre title */
+.genre-box h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+/* Style for the link to see more */
+.price a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.price a:hover {
+    background-color: #0056b3;
+}
