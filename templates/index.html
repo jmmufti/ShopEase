@@ -21,15 +21,12 @@
             </div>
             <div class="search-box">
                 <form method="GET" action="{% url 'search' %}" style="display: flex; width: 100%;">
-                    <select class="select">
-                        <option>All</option>
-                    </select>
                     <input class="form" type="search" name="q" placeholder="Search ShopEase">
                     <button type="submit" class="magnify"><i class="fas fa-search"></i></button>
                 </form>
             </div>
             <div class="language border">
-                <div class="flag-usa"></div>
+                <div class="flag-usa" style="color: red; white; blue;"><i class="fa-solid fa-flag-usa"></i></div>
                 <select class="select-lang">
                     <option>EN</option>
                 </select>
@@ -68,10 +65,12 @@
                 </div>
             </div>
             <div class="other-panel" style="background-color: black;">
-                <p><a href="{% url 'get_to_know_us' %}" style="color: white;">Get to Know Us</a></p>
-                <p><a href="{% url 'add_product' %}" style="color: white;">Add Product</a></p>
+                <p><a href="{% url 'get_to_know_us' %}" style="color: white; text-decoration: none;">Get to Know Us</a></p>
+                {% if user.is_authenticated and user.role == 'seller' %}
+                    <p><a href="{% url 'add_product' %}" style="color: white; text-decoration: none;">Add Product</a></p>
+                {% endif %}
                 {% if user.is_staff or user.is_superuser %}
-                    <p><a href="{% url 'admin:index' %}" style="color: white;">Admin Panel</a></p>
+                    <p><a href="{% url 'admin:index' %}" style="color: white; text-decoration: none;">Admin Panel</a></p>
                 {% endif %}
             </div>
             <div class="shop-electron">

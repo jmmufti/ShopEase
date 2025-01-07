@@ -22,15 +22,12 @@
             </div>
             <div class="search-box">
                 <form method="GET" action="{% url 'search' %}" style="display: flex; width: 100%;">
-                    <select class="select">
-                        <option>All</option>
-                    </select>
                     <input class="form" type="search" name="q" placeholder="Search ShopEase">
                     <button type="submit" class="magnify"><i class="fas fa-search"></i></button>
                 </form>
             </div>
             <div class="language border">
-                <div class="flag-usa"><i class="fa-solid fa-flag-usa"></i></div>
+                <div class="flag-usa" style="color: red; white; blue;"><i class="fa-solid fa-flag-usa"></i></div>
                 <select class="select-lang">
                     <option>EN</option>
                 </select>
@@ -40,7 +37,7 @@
                     <div class="dropdown">
                         <a id="sign_in" href="#">Hello, {{ user.username }}</a>
                         <div class="dropdown-content">
-                            <a href="{% url 'logout' %}" style="color: white !important;">Logout</a>
+                            <a href="{% url 'logout' %}" class="btn-logout";>Logout</a>
                         </div>
                     </div>
                 {% else %}
@@ -60,7 +57,7 @@
             </div>
         </div>
 
-        <div class="panel">
+        <div class="panel" style="background-color: black;">
             <div class="panel-all dropdown">
                 <i class="fas fa-bars"></i>
                 <span id="all-panel">All</span>
@@ -70,9 +67,14 @@
                     {% endfor %}
                 </div>
             </div>
-            <div class="other-panel">
-
-                <p><a href="{% url 'add_product' %}" style="color: white;">Add Product</a></p>
+            <div class="other-panel" style="background-color: black;">
+                <p><a href="{% url 'get_to_know_us' %}" style="color: white; text-decoration: none;">Get to Know Us</a></p>
+                {% if user.is_authenticated and user.role == 'seller' %}
+                    <p><a href="{% url 'add_product' %}" style="color: white; text-decoration: none;">Add Product</a></p>
+                {% endif %}
+                {% if user.is_staff or user.is_superuser %}
+                    <p><a href="{% url 'admin:index' %}" style="color: white; text-decoration: none;">Admin Panel</a></p>
+                {% endif %}
             </div>
             <div class="shop-electron">
                 Shop deals in Electronics
@@ -105,13 +107,7 @@
             </div>
             <div class="foot-panel2">
                 <ul>
-                    <p class="foot-pera">Get to Know Us</p>
-                    <a href="{% url 'get_to_know_us' %}">Careers</a>
-                    <a href="{% url 'get_to_know_us' %}">Blog</a>
-                    <a href="{% url 'get_to_know_us' %}">About ShopEase</a>
-                    <a href="{% url 'get_to_know_us' %}">Investor Relations</a>
-                    <a href="{% url 'get_to_know_us' %}">ShopEase Devices</a>
-                    <a href="{% url 'get_to_know_us' %}">ShopEase Science</a>
+                 
                 </ul>
                 <ul></ul>
                 <ul></ul>

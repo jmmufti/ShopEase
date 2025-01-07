@@ -93,8 +93,39 @@
             <p>Tax: TBD</p>
             <p class="total">Estimated Total: ${{ cart_total }}</p>
             <!-- Stripe Checkout Button -->
-            
-        </div>
+            <button id="checkout-button" class="btn btn-primary">Checkout</button>
+            <script src="https://js.stripe.com/v3/"></script>
+            <script>
+                var stripe = Stripe('{{ STRIPE_PUBLISHABLE_KEY }}');
+                var checkoutButton = document.getElementById('checkout-button');
+    
+                checkoutButton.addEventListener('click', function () {
+                    console.log('Checkout button clicked');  // Debugging statement
+                    fetch('/create-checkout-session/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                    })
+                    .then(function (response) {
+                        console.log('Response received');  // Debugging statement
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        console.log('Session ID:', data.id);  // Debugging statement
+                        return stripe.redirectToCheckout({ sessionId: data.id });
+                    })
+                    .then(function (result) {
+                        if (result.error) {
+                            alert(result.error.message);
+                        }
+                    })
+                    .catch(function (error) {
+                        console.error('Error:', error);
+                    });
+                });
+            </script>
     </main>
 </body>
 </html>

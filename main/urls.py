@@ -3,11 +3,11 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
+    path('index/', views.index, name='index'),  # Home page URL pattern
     path('', views.role_selection, name='role_selection'),  # Set role_selection as the default view
     path('signin/', views.signin, name='signin'),
     path('signup/', views.signup, name='signup'),
     path('logout/', views.logout_view, name='logout'),
-    path('index/', views.index, name='index'),  # Home page URL pattern
     path('cart/', views.cart_detail, name='cart_detail'),
     path('add_product/', views.add_product, name='add_product'),
     path('add_to_cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
@@ -23,4 +23,7 @@ urlpatterns = [
     path('buyer_signup/', views.buyer_signup, name='buyer_signup'),
     path('seller_signup/', views.seller_signup, name='seller_signup'),
     path('admin/', admin.site.urls),
+    path('create-checkout-session/', views.create_checkout_session, name='create_checkout_session'),
+    path('success/', views.payment_success, name='payment_success'),
+
 ]

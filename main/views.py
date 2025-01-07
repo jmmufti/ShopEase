@@ -9,6 +9,8 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import stripe
 from .decorators import buyer_required, seller_required
+from django.views.decorators.http import require_POST
+from django.db.models import Q
 
 def role_selection(request):
     return render(request, 'role_selection.html')
@@ -115,7 +117,7 @@ def signup(request):
             messages.error(request, 'Please correct the error below.')
     else:
         form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'role_selection.html', {'form': form})
 
 @login_required
 @buyer_required
@@ -194,7 +196,15 @@ def remove_product(request, product_id):
 def get_to_know_us(request):
     return render(request, 'get_to_know_us.html')
 
+@login_required
 def payment_success(request):
+    # Get the user's cart
+    cart = Cart.objects.get(user=request.user)
+    # Clear the cart items
+    CartItem.objects.filter(cart=cart).delete()
+    # Optionally, you can also delete the cart itself
+    # cart.delete()
+    messages.success(request, 'Payment successful! Your cart has been cleared.')
     return render(request, 'success.html')
 
 @login_required
@@ -202,10 +212,48 @@ def payment_cancel(request):
     return render(request, 'cancel.html')
 
 def search(request):
-    query = request.GET.get('q')
-    print(f"Search query: {query}")  # Debugging line
+    query = request.GET.get('q', '')
     if query:
-        products = Product.objects.filter(name__icontains=(query))
+        query_words = query.split()
+        products = Product.objects.all()
+        for word in query_words:
+            products = products.filter(
+                Q(name__icontains=word) |
+                Q(description__icontains=word) |
+                Q(genre__icontains=word)
+            )
     else:
         products = Product.objects.all()
     return render(request, 'search_results.html', {'products': products, 'query': query})
+
+@require_POST
+@login_required
+@buyer_required
+def create_checkout_session(request):
+    print('Create checkout session view called')  # Debugging statement
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    cart_items = CartItem.objects.filter(cart=cart)
+
+    line_items = []
+    for item in cart_items:
+        line_items.append({
+            'price_data': {
+                'currency': 'usd',
+                'product_data': {
+                    'name': item.product.name,
+                },
+                'unit_amount': int(item.product.price * 100),
+            },
+            'quantity': item.quantity,
+        })
+
+    session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=line_items,
+        mode='payment',
+        success_url=request.build_absolute_uri('/success/'),
+        cancel_url=request.build_absolute_uri('/cancel/'),
+    )
+
+    print('Session created:', session.id)  # Debugging statement
+    return JsonResponse({'id': session.id})

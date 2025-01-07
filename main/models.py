@@ -64,19 +64,23 @@ class CustomUser(AbstractUser):
         ('seller', 'Seller'),
         ('admin', 'Admin'),
     ]
+    id = models.AutoField(primary_key=True)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='buyer')
 
     groups = models.ManyToManyField(
         'auth.Group',
-        related_name='customuser_set',  # Add related_name
+        related_name='customuser_set',
         blank=True,
         help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
         verbose_name='groups',
     )
     user_permissions = models.ManyToManyField(
         'auth.Permission',
-        related_name='customuser_set',  # Add related_name
+        related_name='customuser_set',
         blank=True,
         help_text='Specific permissions for this user.',
         verbose_name='user permissions',
     )
+    
+    class Meta:
+        db_table = 'main_customuser'

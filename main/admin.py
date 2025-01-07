@@ -19,6 +19,20 @@ class CustomUserAdmin(UserAdmin):
     search_fields = ('email', 'username')
     ordering = ('email',)
 
+    def save_model(self, request, obj, form, change):
+        try:
+            obj.save()
+        except Exception as e:
+            print(f"Error saving object: {e}")
+            raise
+
+    def delete_model(self, request, obj):
+        try:
+            obj.delete()
+        except Exception as e:
+            print(f"Error deleting object: {e}")
+            raise
+
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['name', 'genre', 'price']
     search_fields = ['name', 'genre']
@@ -31,8 +45,6 @@ class CartAdmin(admin.ModelAdmin):
 
 class CartItemAdmin(admin.ModelAdmin):
     list_display = ['cart', 'product', 'quantity']
-    search_fields = ['cart__user__username', 'product__name']
-    list_filter = ['cart', 'product']
 
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Product, ProductAdmin)
