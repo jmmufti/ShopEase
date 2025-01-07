@@ -51,10 +51,12 @@
     
             </div>
             <div class="cart border">
-                <div style="display: flex; align-items: center;">
-                    <i class="fas fa-shopping-cart cart-icon" style="color: yellow; margin-left: 5px;"></i>
-                    <p class="cart_likha" style="margin: 0;">Cart</p>
-                </div>
+                <a href="{% url 'cart_detail' %}">
+                    <div style="display: flex; align-items: center;">
+                        <i class="fas fa-shopping-cart cart-icon" style="color: yellow; margin-left: 5px;"></i>
+                        <p class="cart_likha" style="margin: 0;">Cart</p>
+                    </div>
+                </a>
             </div>
         </div>
 
