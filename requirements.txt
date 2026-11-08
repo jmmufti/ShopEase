@@ -1,12 +1,22 @@
-certifi==2021.5.30
-chardet==4.0.0
-Click==8.0.1
-Flask==2.0.1
-idna==3.2
-itsdangerous==2.0.1
-Jinja2==3.0.1
-MarkupSafe==2.0.1
-requests==2.26.0
-stripe==6.0.0
-toml==0.10.2
-Werkzeug==2.0.1
+# Django & Web Server
+Django>=4.2,<5.0
+gunicorn>=21.2.0
+whitenoise[brotli]>=6.6.0
+dj-database-url>=2.1.0
+
+# Database (MySQL for Railway, psycopg2 as fallback)
+mysqlclient>=2.2.0
+PyMySQL>=1.1.0
+cryptography>=41.0.0
+psycopg2-binary>=2.9.9
+
+# Forms & UI
+django-widget-tweaks>=1.5.0
+Pillow>=10.0.0
+
+# Payments (Stripe)
+stripe>=6.0.0
+
+# Utilities
+requests>=2.31.0
+python-dotenv>=1.0.0

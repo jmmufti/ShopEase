@@ -7,10 +7,10 @@ Python 3.6 or newer required.
 """
 import os
 from flask import Flask, redirect, request
-
 import stripe
-# This is your test secret API key.
-stripe.api_key = 'sk_test_51QNyJnKQbLM2U9ONpuKOFdPcIIbRV7B3XYpnoKRODh2YmtlFeBtxea51EGqMQ7VIdWCO6q9FQoltyNgtQkhQ8LCe00GDd4xSz7'
+
+# Use environment variable instead of hardcoded key
+stripe.api_key = os.environ.get('STRIPE_SECRET_KEY', '')
 
 app = Flask(__name__,
             static_url_path='',
