@@ -80,3 +80,4 @@ class Command(BaseCommand):
                 count += 1
 
         self.stdout.write(self.style.SUCCESS(f'Successfully added {count} sample products!'))
+

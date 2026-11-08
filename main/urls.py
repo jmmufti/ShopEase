@@ -22,8 +22,5 @@ urlpatterns = [
     path('role_selection/', views.role_selection, name='role_selection'),
     path('buyer_signup/', views.buyer_signup, name='buyer_signup'),
     path('seller_signup/', views.seller_signup, name='seller_signup'),
-    path('admin/', admin.site.urls),
     path('create-checkout-session/', views.create_checkout_session, name='create_checkout_session'),
-    path('success/', views.payment_success, name='payment_success'),
-
 ]
